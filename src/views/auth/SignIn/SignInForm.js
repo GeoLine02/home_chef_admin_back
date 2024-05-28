@@ -1,3 +1,4 @@
+//
 import React from 'react'
 import {
     Input,
@@ -12,7 +13,6 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
-import { useSelector } from 'react-redux'
 
 const validationSchema = Yup.object().shape({
     userName: Yup.string().required('Please enter your user name'),
@@ -32,18 +32,15 @@ const SignInForm = (props) => {
 
     const { signIn } = useAuth()
 
-    const user = useSelector((state) => state.auth)
-    console.log(user)
-
     const onSignIn = async (values, setSubmitting) => {
         const { userName, password } = values
         setSubmitting(true)
 
-        const result = await signIn({ email: userName, password })
-        console.log('result', result)
-        // if (result.status === 'failed') {
-        //     setMessage(result.message)
-        // }
+        const result = await signIn({ userName, password })
+
+        if (result.status === 'failed') {
+            setMessage(result.message)
+        }
 
         setSubmitting(false)
     }
@@ -74,7 +71,7 @@ const SignInForm = (props) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="User email"
+                                label="User Name"
                                 invalid={errors.userName && touched.userName}
                                 errorMessage={errors.userName}
                             >

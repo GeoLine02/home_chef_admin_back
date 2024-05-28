@@ -1,8 +1,16 @@
-import { fetchSignIn } from 'store/auth/sessionSlice'
+// import { fetchSignIn } from 'store/auth/sessionSlice'
 import ApiService from './ApiService'
 
+// export async function apiSignIn(data) {
+//     return fetchSignIn(data)
+// }
+
 export async function apiSignIn(data) {
-    return fetchSignIn(data)
+    return ApiService.fetchData({
+        url: '/sign-in',
+        method: 'post',
+        data,
+    })
 }
 
 export async function apiSignUp(data) {
