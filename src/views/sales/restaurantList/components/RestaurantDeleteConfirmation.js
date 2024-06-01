@@ -1,7 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleDeleteConfirmation } from '../store/stateSlice'
-import { deleteRestaurant, getRestaurantList } from '../store/dataSlice'
+import {
+    deleteRestaurant,
+    getRestaurantList,
+    deleteRestaurantByID,
+} from '../store/dataSlice'
 import { Notification, toast } from 'components/ui'
 import { ConfirmDialog } from 'components/shared'
 
@@ -13,7 +17,6 @@ const RestaurantDeleteConfirmation = () => {
     const selectedRestaurant = useSelector(
         (state) => state.salesRestaurantList.state.selectedRestaurant
     )
-    console.log(selectedRestaurant)
     const tableData = useSelector(
         (state) => state.salesRestaurantList.data.tableData
     )
@@ -25,6 +28,7 @@ const RestaurantDeleteConfirmation = () => {
     const onDelete = () => {
         const success = dispatch(deleteRestaurant(selectedRestaurant))
         dispatch(toggleDeleteConfirmation(false))
+        dispatch(deleteRestaurantByID(selectedRestaurant))
         if (success) {
             dispatch(getRestaurantList(tableData))
             toast.push(
