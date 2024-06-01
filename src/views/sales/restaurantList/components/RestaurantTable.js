@@ -82,11 +82,10 @@ const RestaurantTable = () => {
     const data = useSelector(
         (state) => state.salesRestaurantList.data.restaurantList
     )
-
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, sort])
+    }, [pageIndex, pageSize, sort, data?.length])
 
     useEffect(() => {
         if (tableRef) {
