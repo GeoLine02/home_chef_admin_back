@@ -120,6 +120,11 @@ const dataSlice = createSlice({
         setTableData: (state, action) => {
             state.tableData = action.payload
         },
+        deleteRestaurantByID: (state, action) => {
+            state.restaurantList = state.restaurantList.filter(
+                (restaurant) => restaurant.id === action.payload
+            )
+        },
     },
     extraReducers: {
         [getRestaurantList.fulfilled]: (state, action) => {
@@ -147,6 +152,6 @@ const dataSlice = createSlice({
     },
 })
 
-export const { setTableData } = dataSlice.actions
+export const { setTableData, deleteRestaurantByID } = dataSlice.actions
 
 export default dataSlice.reducer
